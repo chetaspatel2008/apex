@@ -1,0 +1,32 @@
+    #PYRAMID
+
+row = int(input("enter the no. of rows: "))
+for i in range (row):
+
+    #for spaces
+
+    for j in range(row - i - 1):
+        print(" ",end="")
+
+    # for stars 
+    for k in range(2*i + 1):
+        print("*",end="")
+
+    print()    
+
+
+
+
+    #INVERTED PYRAMID
+
+row = int(input("enter the number of rows: "))
+
+for i in range(row):
+
+    #to print space
+    for j in range(i):
+        print(" ",end="")
+    #to print stars 
+    for k in range(2 * (row - i) - 1):
+        print("*",end="")
+    print()
