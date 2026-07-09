@@ -1,0 +1,96 @@
+                            #HANGMAN GAME 
+
+
+import random
+
+#type   pip install wordfreq    in your terminal  
+#it will install 10k most common words in english
+
+from wordfreq import top_n_list
+
+words = top_n_list("en", 10000)      
+
+
+
+hangman_art = {0: ("       ",
+                   "     ",
+                   "     "),
+
+               1: ("   Ǒ   ",
+                   "       ",
+                   "       "),
+                
+               2: ("   Ǒ   ",
+                   "   |   ",
+                   "       "),
+
+               3: ("   Ǒ   ",
+                   "   |\\ ",
+                   "       "),
+
+               4: ("   Ǒ   ",
+                   "  /|\\ ",
+                   "       "),
+
+               5: ("   Ǒ   ",
+                   "  /|\\ ",
+                   "  /    "),
+
+               6: ("   Ǒ   ",
+                   "  /|\\ ",
+                   "  / \\ ")             
+}
+
+def load_hangman(wrong_guesses):
+    print("****************")
+    for line in hangman_art[wrong_guesses]:
+        print(line)
+    print("****************")
+
+def load_hint(hint):
+    print(" ".join(hint))
+
+def load_answer(answer):
+    print(" ".join(answer))
+
+def main():
+
+    answer = random.choice(words)
+    hint = ["_"]*len(answer)
+    wrong_guesses = 0
+    guess_letters = set()
+    is_running = True
+
+    while is_running:
+        load_hangman(wrong_guesses)
+        load_hint(hint)
+        guess = input("guess a letter : ").lower()
+        if len(guess) != 1:
+            print("just one letter")
+            continue
+        #if already guess 
+        if guess in guess_letters:
+            print("alreagy guessed!!")
+
+        #correct guess
+        if guess in answer:
+            for i in range (len(answer)):
+                if answer[i] == guess:
+                    hint[i] = guess
+        #incorrect guess
+        else:
+            wrong_guesses += 1
+            print("wrong guess")
+        
+        #win
+        if "_" not in hint:
+            print("find the answer !!!")
+            print(f"The answer is {answer}")
+            is_running = False
+        #loose
+        if wrong_guesses > 6:
+            print("you loose *_*")
+            print(f"The answer is {answer}")
+            is_running = False
+if __name__ == "__main__":
+    main()
